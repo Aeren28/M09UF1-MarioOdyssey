@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public class Player : MonoBehaviour
 {
@@ -14,21 +15,13 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        //if (inputManager.GetNorthButtonPressed())
-        //{
-        //    Debug.Log("Pressed-GetNorthButtonPressed");
-        //}
+
         if (inputManager.GetSouthButtonPressed())
         {
             Debug.Log("Pressed-South");
         }
-        //if (inputManager.GetEastButtonPressed())
-        //{
-        //    Debug.Log("Pressed-GetEastButtonPressed");
-        //}
-        //if (inputManager.GetWestButtonPressed())
-        //{
-        //    Debug.Log("Pressed-GetWestButtonPressed");
-        //}
+
+
     }
+
 }

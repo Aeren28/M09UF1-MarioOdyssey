@@ -10,9 +10,6 @@ public class Input_Manager : MonoBehaviour
     private PlayerInputActions playerInputs;
 
     private float timeSinceJumpPressed = 0f;
-    private float timeSinceJumpPresseds = 0f;
-    private float timeSinceJumpPressedd = 0f;
-    private float timeSinceJumpPressedf = 0f;
     private Vector2 leftAxisValue = Vector2.zero;
 
     private void Awake()
@@ -21,7 +18,7 @@ public class Input_Manager : MonoBehaviour
 
         if (_INPUT_MANAGER != null && _INPUT_MANAGER != this) // Si existe un input manager y no soy yo
         {
-            Destroy(this.gameObject); // Destruyelo ùwú
+            Destroy(this.gameObject); // Destruyelo
         }
         else
         {
@@ -58,23 +55,10 @@ public class Input_Manager : MonoBehaviour
         Debug.Log("Magnitude: " + leftAxisValue.magnitude);
         Debug.Log("Normalize: " + leftAxisValue.normalized);
     }
-    //public bool GetNorthButtonPressed()
-    //{
-    //    return this.timeSinceJumpPressed == 0f;
-    //}
 
     public bool GetSouthButtonPressed()
     {
         return this.timeSinceJumpPressed == 0f;
     }
 
-    //public bool GetEastButtonPressed()
-    //{
-    //    return this.timeSinceJumpPressed == 0f;
-    //}
-
-    //public bool GetWestButtonPressed()
-    //{
-    //    return this.timeSinceJumpPressed == 0f;
-    //}
 }
