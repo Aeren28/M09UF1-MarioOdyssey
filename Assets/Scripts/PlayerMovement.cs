@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -13,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private float velocity = 5f;
+
+    [SerializeField]
+    private float speed;
 
     [SerializeField]
     private float gravity = 20f;
@@ -35,13 +39,33 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        BasicMovement();
+
+              
+
+    }
+
+
+    private void BasicMovement()
+    {
+
         //Calcular dirección XZ
         Vector3 direction = Quaternion.Euler(0f, camera.transform.eulerAngles.y, 0f) * new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
         direction.Normalize();
 
+        if (direction != Vector3.zero && speed <= velocity)
+        {
+
+            speed += velocity * Time.deltaTime;
+        }
+        else if (direction == Vector3.zero && speed > 0)
+        {
+            speed -= velocity * Time.deltaTime;
+        }
+
         //Calcular velocidad XZ
-        finalVelocity.x = direction.x * velocity;
-        finalVelocity.z = direction.z * velocity;
+        finalVelocity.x = direction.x * speed;
+        finalVelocity.z = direction.z * speed;
 
         controller.Move(finalVelocity * Time.deltaTime);
 
@@ -84,8 +108,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        
-
     }
+
 
 }
