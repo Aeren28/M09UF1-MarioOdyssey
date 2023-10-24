@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField]
+    Camera camera;
+
     private CharacterController controller;
 
     private Vector3 finalVelocity = Vector3.zero;
@@ -22,18 +25,33 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        //Bloquea cursor
+        Cursor.lockState = CursorLockMode.Locked;
+
+
         controller = GetComponent<CharacterController>();
+
     }
 
     private void Update()
     {
         //Calcular dirección XZ
-        Vector3 direction = Input.GetAxis("Vertical") * transform.forward + Input.GetAxis("Horizontal") * transform.right;
+        Vector3 direction = Quaternion.Euler(0f, camera.transform.eulerAngles.y, 0f) * new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
         direction.Normalize();
 
         //Calcular velocidad XZ
         finalVelocity.x = direction.x * velocity;
         finalVelocity.z = direction.z * velocity;
+
+        controller.Move(finalVelocity * Time.deltaTime);
+
+        if (direction != Vector3.zero)
+        {
+            Quaternion desiredRotation = Quaternion.LookRotation(direction, Vector3.up);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, 0.5f * Time.deltaTime);
+            gameObject.transform.forward = direction;
+        }
 
         //Asignar dirección Y
         direction.y = -1f;
@@ -66,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        controller.Move(finalVelocity * Time.deltaTime);
+        
 
     }
 
