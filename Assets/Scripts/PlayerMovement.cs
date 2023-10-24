@@ -22,7 +22,14 @@ public class PlayerMovement : MonoBehaviour
     private float gravity = 20f;
 
     [SerializeField] 
-    private float jumpForce = 8f;
+    private float jumpForce;
+
+    [SerializeField]
+    private float inicialJump;
+
+    private int jumpCounter = 0;
+
+    public float jumpTimer = 0;
 
     [SerializeField]
     private float coyoteTime = 1f;
@@ -37,18 +44,63 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    void Start()
+    {
+        jumpForce = inicialJump;
+    }
+
     private void Update()
     {
         BasicMovement();
 
-              
+        MarioJump();     
 
     }
 
+    private void MarioJump()
+    {
+        //Calcular gravedad
+        if (controller.isGrounded)
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                finalVelocity.y = jumpForce;
+
+                jumpCounter++;
+
+                jumpTimer = 0.5f;
+                jumpForce *= 1.5f;
+
+                if (jumpCounter >= 3)
+                {
+                    jumpCounter = 0;
+                    jumpForce = inicialJump;
+                }
+
+            }
+            else
+            {
+                finalVelocity.y = -gravity * Time.deltaTime;
+                coyoteTime = 1f;
+
+                if (jumpTimer <= 0)
+                {
+                    jumpForce = inicialJump;
+                    jumpCounter = 0;
+                }
+            }
+
+        }
+        else
+        {
+            finalVelocity.y += -gravity * Time.deltaTime;
+
+            coyoteTime -= Time.deltaTime;
+        }
+    }
 
     private void BasicMovement()
     {
-
         //Calcular dirección XZ
         Vector3 direction = Quaternion.Euler(0f, camera.transform.eulerAngles.y, 0f) * new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
         direction.Normalize();
@@ -77,36 +129,6 @@ public class PlayerMovement : MonoBehaviour
             gameObject.transform.forward = direction;
         }
 
-        //Asignar dirección Y
-        direction.y = -1f;
-
-        //Calcular gravedad
-        if (controller.isGrounded)
-        {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                finalVelocity.y = jumpForce;
-            }
-            else
-            {
-                finalVelocity.y = direction.y * gravity * Time.deltaTime;
-                coyoteTime = 1f;
-            }
-
-        }
-        else
-        {
-            finalVelocity.y += direction.y * gravity * Time.deltaTime;
-
-            coyoteTime -= Time.deltaTime;
-            if (Input.GetKey(KeyCode.Space) && coyoteTime >= 0f)
-            {
-                finalVelocity.y = jumpForce;
-                coyoteTime = 0f;
-
-            }
-
-        }
 
     }
 
