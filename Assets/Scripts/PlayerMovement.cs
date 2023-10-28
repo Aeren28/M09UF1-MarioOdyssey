@@ -34,6 +34,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float coyoteTime = 1f;
 
+    [SerializeField]
+    private bool crouch;
+
     private void Awake()
     {
         //Bloquea cursor
@@ -53,10 +56,33 @@ public class PlayerMovement : MonoBehaviour
     {
         BasicMovement();
 
-        MarioJump();     
+        MarioJump();
+
+        Cruch();
 
     }
 
+    private void Cruch()
+    {
+        if (Input.GetKey(KeyCode.LeftShift) && crouch == false)
+        {
+            crouch = true;
+        }
+        else if (!Input.GetKey(KeyCode.LeftShift) && crouch == true)
+        {
+            crouch = false;
+        }
+        if (crouch == true)
+        {
+            finalVelocity *= 0.5f;
+            controller.height = 1f;
+
+        }
+        else
+        {
+            controller.height = 2f;
+        }
+    }
     private void MarioJump()
     {
         //Calcular gravedad
@@ -69,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
                 jumpCounter++;
 
                 jumpTimer = 0.5f;
-                jumpForce *= 1.5f;
+                jumpForce *= 2f;
 
                 if (jumpCounter >= 3)
                 {

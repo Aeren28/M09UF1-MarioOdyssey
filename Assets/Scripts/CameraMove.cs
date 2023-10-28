@@ -8,7 +8,7 @@ public class CameraMove : MonoBehaviour
     private Transform target;
 
     [SerializeField]
-    private float targetDistance;
+    private float targetDistance = 15f;
 
     [SerializeField]
     private float cameraLerp;
