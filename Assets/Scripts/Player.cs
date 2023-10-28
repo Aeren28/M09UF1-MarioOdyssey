@@ -16,9 +16,9 @@ public class Player : MonoBehaviour
     private void Update()
     {
 
-        if (inputManager.GetSouthButtonPressed())
+        if (inputManager.GetJumpButtonPressed())
         {
-            Debug.Log("Pressed-South");
+            Debug.Log("Pressed");
         }
 
 

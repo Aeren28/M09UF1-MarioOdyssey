@@ -11,17 +11,26 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
 
     private Vector3 finalVelocity = Vector3.zero;
+    private Vector3 followDirecction = Vector3.zero;
+
+    private Input_Manager inputManager;
 
     [SerializeField]
-    private float velocity = 5f;
+    private float velocity = 0f;
 
-    [SerializeField]
-    private float speed;
+    [SerializeField] 
+    private float maxVelocity = 5f;
+
+    [SerializeField] 
+    private float acceleration = 2.5f;
+
+    [SerializeField] 
+    private float decceleration = 2.5f;
 
     [SerializeField]
     private float gravity = 20f;
 
-    [SerializeField] 
+    [SerializeField]
     private float jumpForce;
 
     [SerializeField]
@@ -32,19 +41,16 @@ public class PlayerMovement : MonoBehaviour
     public float jumpTimer = 0;
 
     [SerializeField]
-    private float coyoteTime = 1f;
-
-    [SerializeField]
     private bool crouch;
+
 
     private void Awake()
     {
         //Bloquea cursor
         Cursor.lockState = CursorLockMode.Locked;
 
-
         controller = GetComponent<CharacterController>();
-
+        inputManager = Input_Manager._INPUT_MANAGER;
     }
 
     void Start()
@@ -64,31 +70,27 @@ public class PlayerMovement : MonoBehaviour
 
     private void Cruch()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && crouch == false)
+        if (inputManager.GetCruchButtonPressed())
         {
-            crouch = true;
-        }
-        else if (!Input.GetKey(KeyCode.LeftShift) && crouch == true)
-        {
-            crouch = false;
-        }
-        if (crouch == true)
-        {
+
             finalVelocity *= 0.5f;
             controller.height = 1f;
 
+            crouch = true;
         }
         else
         {
+            crouch = false;
             controller.height = 2f;
         }
+
     }
     private void MarioJump()
     {
         //Calcular gravedad
         if (controller.isGrounded)
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (inputManager.GetJumpButtonPressed())
             {
                 finalVelocity.y = jumpForce;
 
@@ -107,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 finalVelocity.y = -gravity * Time.deltaTime;
-                coyoteTime = 1f;
+        
 
                 if (jumpTimer <= 0)
                 {
@@ -121,31 +123,16 @@ public class PlayerMovement : MonoBehaviour
         {
             finalVelocity.y += -gravity * Time.deltaTime;
 
-            coyoteTime -= Time.deltaTime;
+
         }
     }
 
     private void BasicMovement()
     {
+
         //Calcular dirección XZ
-        Vector3 direction = Quaternion.Euler(0f, camera.transform.eulerAngles.y, 0f) * new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+        Vector3 direction = Quaternion.Euler(0f, camera.transform.eulerAngles.y, 0f) * new Vector3(inputManager.GetLeftAxisValue().x, 0f, inputManager.GetLeftAxisValue().y);
         direction.Normalize();
-
-        if (direction != Vector3.zero && speed <= velocity)
-        {
-
-            speed += velocity * Time.deltaTime;
-        }
-        else if (direction == Vector3.zero && speed > 0)
-        {
-            speed -= velocity * Time.deltaTime;
-        }
-
-        //Calcular velocidad XZ
-        finalVelocity.x = direction.x * speed;
-        finalVelocity.z = direction.z * speed;
-
-        controller.Move(finalVelocity * Time.deltaTime);
 
         if (direction != Vector3.zero)
         {
@@ -153,10 +140,25 @@ public class PlayerMovement : MonoBehaviour
 
             transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, 0.5f * Time.deltaTime);
             gameObject.transform.forward = direction;
+
+            velocity += acceleration * Time.deltaTime;
+            followDirecction = direction;
+
         }
+        else
+        {
+            velocity -= decceleration * Time.deltaTime;
+            direction.x = followDirecction.x;
+            direction.z = followDirecction.z;
+        }
+
+        //Calcular velocidad XZ
+        finalVelocity.x = direction.x * velocity;
+        finalVelocity.z = direction.z * velocity;
+
+        controller.Move(finalVelocity * Time.deltaTime);
 
 
     }
-
-
 }
+

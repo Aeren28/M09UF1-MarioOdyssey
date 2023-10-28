@@ -12,6 +12,9 @@ public class Input_Manager : MonoBehaviour
     private float timeSinceJumpPressed = 0f;
     private Vector2 leftAxisValue = Vector2.zero;
 
+    private bool jumpButtonPressed = false;
+    private bool cruchButtonPressed = false;
+
     private void Awake()
     {
         // Compruebo existencia de instancias al input manager
@@ -29,6 +32,7 @@ public class Input_Manager : MonoBehaviour
             //Delegates
             playerInputs.Character.Jump.performed += JumpButtonPressed;
             playerInputs.Character.Move.performed += leftAxisUpdate;
+            playerInputs.Character.Crouch.performed += CruchButtonPressed;
 
 
             _INPUT_MANAGER = this;
@@ -40,11 +44,15 @@ public class Input_Manager : MonoBehaviour
     {
         timeSinceJumpPressed += Time.deltaTime;
 
+        jumpButtonPressed = false;
+        cruchButtonPressed = false;
+
         InputSystem.Update();
     }
 
     private void JumpButtonPressed(InputAction.CallbackContext context)
     {
+        jumpButtonPressed = true;
         timeSinceJumpPressed = 0f;
     }
 
@@ -56,9 +64,27 @@ public class Input_Manager : MonoBehaviour
         Debug.Log("Normalize: " + leftAxisValue.normalized);
     }
 
-    public bool GetSouthButtonPressed()
+    private void CruchButtonPressed(InputAction.CallbackContext context)
     {
-        return this.timeSinceJumpPressed == 0f;
+        cruchButtonPressed = true;
+    }
+    public bool GetJumpButtonPressed()
+    {
+        return jumpButtonPressed;
+    }
+
+    public float GetJumpButtonPressedTime()
+    {
+        return timeSinceJumpPressed;
+    }
+
+    public bool GetCruchButtonPressed()
+    {
+        return cruchButtonPressed;
+    }
+    public Vector2 GetLeftAxisValue()
+    {
+        return leftAxisValue;
     }
 
 }
