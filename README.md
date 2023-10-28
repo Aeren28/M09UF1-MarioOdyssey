@@ -49,10 +49,13 @@ control del personaje:
 ## Cámara (1.5 puntos)
 Se espera que la cámara acompañe el gameplay:
 - [ ] Siguiendo el jugador a una cierta distancia y evitando la pérdida de visión.
-- [ ] Siendo capaz de orbitar alrededor del personaje controlado a voluntad del
+- [x] Siendo capaz de orbitar alrededor del personaje controlado a voluntad del
 jugador.
 
-## Criterio del profesor (1.5 puntos)
+## Criterio del profesor (1.5 puntos)🦆🦆❤️
 Este último apartado quedará a criterio del profesor donde se evaluarán
 otros elementos como la organización del proyecto, calidad de código, mecánicas
 adicionales implementadas, sensación de juego, etcétera...
+
+## Cosas que no son mías 
+
