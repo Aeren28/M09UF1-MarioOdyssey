@@ -17,7 +17,7 @@ elementos whitebox
 Las mecánicas a replicar del movimiento de Mario son:
 - [x] Movimiento relativo a la orientación de la cámara con aceleración.
 - [x] Salto, doble salto y triple salto.
-- [ ]  Agacharse y andar agachado.
+- [x]  Agacharse y andar agachado.
 - [ ]  Salto largo y mortal hacía atrás.
 - [ ]  Salto rebote a pared.
 - [ ]  Lanzamiento de Cappy y mecánica de rebote al contactar con él.
