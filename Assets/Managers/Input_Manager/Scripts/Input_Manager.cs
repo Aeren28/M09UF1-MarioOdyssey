@@ -10,7 +10,13 @@ public class Input_Manager : MonoBehaviour
     private PlayerInputActions playerInputs;
 
     private float timeSinceJumpPressed = 0f;
+    private float timeSinceCrouchPressed = 0f;
+
+    private bool jumpButtonPressed = false;
+    private bool crouchButtonPressed = false;
+
     private Vector2 leftAxisValue = Vector2.zero;
+    private Vector2 rightAxisValue = Vector2.zero;
 
     private void Awake()
     {
@@ -28,9 +34,11 @@ public class Input_Manager : MonoBehaviour
 
             //Delegates
             playerInputs.Character.Jump.performed += JumpButtonPressed;
-            playerInputs.Character.Move.performed += leftAxisUpdate;
+            playerInputs.Character.Crouch.performed += CrouchButtonPressed;
 
-
+            playerInputs.Character.Move.performed += LeftAxisUpdate;
+            playerInputs.Character.Camera.performed += RightAxisUpdate;
+            
             _INPUT_MANAGER = this;
             DontDestroyOnLoad(this.gameObject);
         }
@@ -38,17 +46,21 @@ public class Input_Manager : MonoBehaviour
 
     private void Update()
     {
+        jumpButtonPressed = false;
+        crouchButtonPressed = false;
+
         timeSinceJumpPressed += Time.deltaTime;
+        timeSinceCrouchPressed += Time.deltaTime;
 
         InputSystem.Update();
     }
 
-    private void JumpButtonPressed(InputAction.CallbackContext context)
+    private void RightAxisUpdate(InputAction.CallbackContext context)
     {
-        timeSinceJumpPressed = 0f;
+        rightAxisValue = context.ReadValue<Vector2>();
     }
 
-    private void leftAxisUpdate(InputAction.CallbackContext context)
+    private void LeftAxisUpdate(InputAction.CallbackContext context)
     {
         leftAxisValue = context.ReadValue<Vector2>();
 
@@ -56,9 +68,24 @@ public class Input_Manager : MonoBehaviour
         Debug.Log("Normalize: " + leftAxisValue.normalized);
     }
 
-    public bool GetSouthButtonPressed()
+    private void JumpButtonPressed(InputAction.CallbackContext context)
     {
-        return this.timeSinceJumpPressed == 0f;
+        jumpButtonPressed = true;
+        timeSinceJumpPressed = 0f;
     }
+
+    private void CrouchButtonPressed(InputAction.CallbackContext context)
+    {
+        crouchButtonPressed = true;
+    }
+
+    public Vector2 GetRightAxis() { return rightAxisValue; }
+    public Vector2 GetLeftAxis() { return leftAxisValue; }
+
+    public bool GetJumpButtonPressed() { return jumpButtonPressed; }
+    public float GetJumpButtonPressedTime() {  return timeSinceJumpPressed; }
+
+    public bool GetCrouchButtonPressed() { return crouchButtonPressed; }
+    public float GetCrouchButtonPressedTime() {  return timeSinceCrouchPressed; }
 
 }
