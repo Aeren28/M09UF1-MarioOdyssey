@@ -38,7 +38,7 @@ siguiente forma al entrar en contacto con el jugador:
 - [x] Elementos estáticos que matan al jugador, al morir se reinicia el nivel.
 - [x] Estrellas esparcidas por el mundo, cuando el jugador recolecta X cantidad
 gana la partida. Cuando una moneda es recogida desaparece del nivel.
-- [ ] Plataformas de rebote que impulsaran el jugador hacía una dirección.
+- [x] Plataformas de rebote que impulsaran el jugador hacía una dirección.
 
 ## Inputs (1.5 puntos)
 Se espera que los controles del juego sean multiplataforma y permitan el
