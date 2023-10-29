@@ -18,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private UiGameOver gameover;
 
+    [SerializeField]
+    private UiYouWin youWin;
+
     private Vector3 finalVelocity = Vector3.zero;
     private Vector3 followDirector = Vector3.zero;
 
@@ -80,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         gameover.Hide();
+        youWin.HideWin();
         jumpForce = inicialJump;
     }
 
