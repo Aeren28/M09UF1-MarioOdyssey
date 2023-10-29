@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class PlatformReaction : MonoBehaviour
 {
-    [SerializeField]
+    private GameObject player;
+
     private PlayerMovement move;
 
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        move = player.GetComponent<PlayerMovement>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {

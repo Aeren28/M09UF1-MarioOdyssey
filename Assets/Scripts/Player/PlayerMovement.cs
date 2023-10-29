@@ -207,10 +207,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public Vector3 PlatformJump()
+    public void PlatformJump()
     {
         finalVelocity.y = 50f;
-        return finalVelocity;
     }
 
     private void BasicMovement()
