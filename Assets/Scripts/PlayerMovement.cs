@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
     private Input_Manager inputManager;
 
+    [SerializeField]
+    private UiGameOver gameover;
+
     private Vector3 finalVelocity = Vector3.zero;
     private Vector3 followDirector = Vector3.zero;
 
@@ -58,11 +61,6 @@ public class PlayerMovement : MonoBehaviour
         inputManager = Input_Manager._INPUT_MANAGER;
     }
 
-    public float GetCurrentSpeed()
-    {
-        return this.speed;
-    }
-
     private void Update()
     {
         BasicMovement();
@@ -75,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        gameover.Hide();
         jumpForce = inicialJump;
     }
 
