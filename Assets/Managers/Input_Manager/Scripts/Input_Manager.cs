@@ -11,9 +11,7 @@ public class Input_Manager : MonoBehaviour
 
     private float timeSinceJumpPressed = 0f;
     private float timeSinceCrouchPressed = 0f;
-
-    private bool jumpButtonPressed = false;
-    private bool crouchButtonPressed = false;
+    private float timeSinceCappyPressed = 0f;
 
     private Vector2 leftAxisValue = Vector2.zero;
     private Vector2 rightAxisValue = Vector2.zero;
@@ -35,7 +33,7 @@ public class Input_Manager : MonoBehaviour
             //Delegates
             playerInputs.Character.Jump.performed += JumpButtonPressed;
             playerInputs.Character.Crouch.performed += CrouchButtonPressed;
-
+            playerInputs.Character.Cappy.performed += CappyButtonPressed;
             playerInputs.Character.Move.performed += LeftAxisUpdate;
             playerInputs.Character.Camera.performed += RightAxisUpdate;
             
@@ -46,9 +44,8 @@ public class Input_Manager : MonoBehaviour
 
     private void Update()
     {
-        jumpButtonPressed = false;
-        crouchButtonPressed = false;
 
+        timeSinceCappyPressed += Time.deltaTime;
         timeSinceJumpPressed += Time.deltaTime;
         timeSinceCrouchPressed += Time.deltaTime;
 
@@ -64,28 +61,36 @@ public class Input_Manager : MonoBehaviour
     {
         leftAxisValue = context.ReadValue<Vector2>();
 
-        Debug.Log("Magnitude: " + leftAxisValue.magnitude);
-        Debug.Log("Normalize: " + leftAxisValue.normalized);
+        //Debug.Log("Magnitude: " + leftAxisValue.magnitude);
+        //Debug.Log("Normalize: " + leftAxisValue.normalized);
     }
 
     private void JumpButtonPressed(InputAction.CallbackContext context)
     {
-        jumpButtonPressed = true;
+      
         timeSinceJumpPressed = 0f;
     }
 
     private void CrouchButtonPressed(InputAction.CallbackContext context)
     {
-        crouchButtonPressed = true;
+        timeSinceCrouchPressed = 0f; 
+    }
+
+    private void CappyButtonPressed(InputAction.CallbackContext context)
+    {
+       timeSinceCappyPressed = 0f;
     }
 
     public Vector2 GetRightAxis() { return rightAxisValue; }
     public Vector2 GetLeftAxis() { return leftAxisValue.normalized; }
 
     public bool GetJumpButtonPressed() { return timeSinceJumpPressed <= 0.2f; }
-    public float GetJumpButtonPressedTime() {  return timeSinceJumpPressed; }
+
+
+    public bool GetCappyButtonPresed() { return timeSinceCappyPressed <= 0.2f;  }
+
 
     public bool GetCrouchButtonPressed() { return timeSinceCrouchPressed <= 0.2; }
-    public float GetCrouchButtonPressedTime() {  return timeSinceCrouchPressed; }
+
 
 }

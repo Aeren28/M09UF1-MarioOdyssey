@@ -40,6 +40,15 @@
                     "processors": "NormalizeVector2",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Cappy",
+                    "type": "Button",
+                    "id": "9a97758b-25f6-4b32-b3d1-dee26f045bf4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -216,6 +225,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fdeb54d2-8a80-41a6-93c6-a3a147b9c016",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cappy",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "551ad522-a17a-454a-8e96-ac7f9db5a3ad",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cappy",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

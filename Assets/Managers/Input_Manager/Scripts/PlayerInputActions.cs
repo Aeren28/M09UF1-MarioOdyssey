@@ -62,6 +62,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": ""NormalizeVector2"",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cappy"",
+                    ""type"": ""Button"",
+                    ""id"": ""9a97758b-25f6-4b32-b3d1-dee26f045bf4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -240,6 +249,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Camera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fdeb54d2-8a80-41a6-93c6-a3a147b9c016"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cappy"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""551ad522-a17a-454a-8e96-ac7f9db5a3ad"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cappy"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -252,6 +283,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Character_Jump = m_Character.FindAction("Jump", throwIfNotFound: true);
         m_Character_Crouch = m_Character.FindAction("Crouch", throwIfNotFound: true);
         m_Character_Camera = m_Character.FindAction("Camera", throwIfNotFound: true);
+        m_Character_Cappy = m_Character.FindAction("Cappy", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -317,6 +349,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_Jump;
     private readonly InputAction m_Character_Crouch;
     private readonly InputAction m_Character_Camera;
+    private readonly InputAction m_Character_Cappy;
     public struct CharacterActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -325,6 +358,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Character_Jump;
         public InputAction @Crouch => m_Wrapper.m_Character_Crouch;
         public InputAction @Camera => m_Wrapper.m_Character_Camera;
+        public InputAction @Cappy => m_Wrapper.m_Character_Cappy;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -346,6 +380,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Camera.started += instance.OnCamera;
             @Camera.performed += instance.OnCamera;
             @Camera.canceled += instance.OnCamera;
+            @Cappy.started += instance.OnCappy;
+            @Cappy.performed += instance.OnCappy;
+            @Cappy.canceled += instance.OnCappy;
         }
 
         private void UnregisterCallbacks(ICharacterActions instance)
@@ -362,6 +399,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Camera.started -= instance.OnCamera;
             @Camera.performed -= instance.OnCamera;
             @Camera.canceled -= instance.OnCamera;
+            @Cappy.started -= instance.OnCappy;
+            @Cappy.performed -= instance.OnCappy;
+            @Cappy.canceled -= instance.OnCappy;
         }
 
         public void RemoveCallbacks(ICharacterActions instance)
@@ -385,5 +425,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnCamera(InputAction.CallbackContext context);
+        void OnCappy(InputAction.CallbackContext context);
     }
 }
