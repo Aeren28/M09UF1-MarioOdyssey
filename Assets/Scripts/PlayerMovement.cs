@@ -58,6 +58,10 @@ public class PlayerMovement : MonoBehaviour
         inputManager = Input_Manager._INPUT_MANAGER;
     }
 
+    public float GetCurrentSpeed()
+    {
+        return this.speed;
+    }
 
     private void Update()
     {
@@ -76,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Cruch()
     {
+
         if (inputManager.GetCrouchButtonPressed() && crouch == false)
         {
             crouch = true;
