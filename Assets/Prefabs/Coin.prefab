@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 57d505fa45fbcad458ce792af73d4380, type: 3}
       propertyPath: m_Name
-      value: Coin 1
+      value: Coin
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -133,5 +133,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a102c1a34e723184484d3603dff81d3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 2
-  velocity: 7
+  distance: 0.36
+  velocity: 2

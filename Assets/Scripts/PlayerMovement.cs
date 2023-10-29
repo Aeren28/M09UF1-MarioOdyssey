@@ -30,15 +30,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float gravity = 20f;
 
-    [SerializeField] 
-    private float jumpForce;
+    [SerializeField]
+    private float jumpForce = 20f;
 
     [SerializeField]
-    private float inicialJump;
+    //private int maxJump = 2;
+    private float inicialJump = 8f;
 
     private int jumpCounter = 0;
 
-    public float jumpTimer = 0;
+    //public float jumpDistance = 5;
+    public float jumpTimer = 5;
 
     [SerializeField]
     private float coyoteTime = 1f;
@@ -56,10 +58,6 @@ public class PlayerMovement : MonoBehaviour
         inputManager = Input_Manager._INPUT_MANAGER;
     }
 
-    void Start()
-    {
-        jumpForce = inicialJump;
-    }
 
     private void Update()
     {
@@ -71,13 +69,18 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    void Start()
+    {
+        jumpForce = inicialJump;
+    }
+
     private void Cruch()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && crouch == false)
+        if (inputManager.GetCrouchButtonPressed() && crouch == false)
         {
             crouch = true;
         }
-        else if (!Input.GetKey(KeyCode.LeftShift) && crouch == true) //<- no hace falta pero como funciona no se toca
+        else if (!inputManager.GetCrouchButtonPressed() && crouch == true) //<- no hace falta pero como funciona no se toca
         {
             crouch = false;
         }
@@ -94,17 +97,19 @@ public class PlayerMovement : MonoBehaviour
     }
     private void MarioJump()
     {
+        
         //Calcular gravedad
         if (controller.isGrounded)
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (inputManager.GetJumpButtonPressed())
             {
+                //Debug.Log("Salto");
                 finalVelocity.y = jumpForce;
 
                 jumpCounter++;
 
                 jumpTimer = 0.5f;
-                jumpForce *= 2f;
+                jumpForce *= 1.5f;
 
                 if (jumpCounter >= 3)
                 {
@@ -120,7 +125,6 @@ public class PlayerMovement : MonoBehaviour
 
                 if (jumpTimer <= 0)
                 {
-                    jumpForce = inicialJump;
                     jumpCounter = 0;
                 }
             }
@@ -132,13 +136,14 @@ public class PlayerMovement : MonoBehaviour
 
             coyoteTime -= Time.deltaTime;
         }
+
     }
 
     private void BasicMovement()
     {
         //Calcular dirección XZ
         //Vector3 direction = Quaternion.Euler(0f, camera.transform.eulerAngles.y, 0f) * new Vector3(inputManager.GetLeftAxis().x, 0f, inputManager.GetLeftAxis().y);
-        Vector3 direction = Quaternion.Euler(0f, camera.transform.eulerAngles.y, 0f) * new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+        Vector3 direction = Quaternion.Euler(0f, camera.transform.eulerAngles.y, 0f) * new Vector3(inputManager.GetLeftAxis().x, 0f, inputManager.GetLeftAxis().y);
         direction.Normalize();
 
         if (direction != Vector3.zero)

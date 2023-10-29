@@ -80,12 +80,12 @@ public class Input_Manager : MonoBehaviour
     }
 
     public Vector2 GetRightAxis() { return rightAxisValue; }
-    public Vector2 GetLeftAxis() { return leftAxisValue; }
+    public Vector2 GetLeftAxis() { return leftAxisValue.normalized; }
 
-    public bool GetJumpButtonPressed() { return jumpButtonPressed; }
+    public bool GetJumpButtonPressed() { return timeSinceJumpPressed <= 0.2f; }
     public float GetJumpButtonPressedTime() {  return timeSinceJumpPressed; }
 
-    public bool GetCrouchButtonPressed() { return crouchButtonPressed; }
+    public bool GetCrouchButtonPressed() { return timeSinceCrouchPressed <= 0.2; }
     public float GetCrouchButtonPressedTime() {  return timeSinceCrouchPressed; }
 
 }
