@@ -17,7 +17,7 @@ elementos whitebox
 Las mecánicas a replicar del movimiento de Mario son:
 - [x] Movimiento relativo a la orientación de la cámara con aceleración.
 - [x] Salto, doble salto y triple salto.
-- [x]  Agacharse y andar agachado.
+- [ ]  Agacharse y andar agachado.
 - [ ]  Salto largo y mortal hacía atrás.
 - [ ]  Salto rebote a pared.
 - [ ]  Lanzamiento de Cappy y mecánica de rebote al contactar con él.
@@ -27,7 +27,7 @@ Se espera que el personaje tenga unas animaciones para sus mecánicas
 básicas, puede usarse una animación procedural si el alumno lo prefiere para
 ciertas animaciones.
 - [x] Idle.
-- [ ] Caminar/Correr.
+- [x] Caminar/Correr.
 - [ ] Salto.
 - [ ] Doble salto.
 - [ ] Triple salto.
@@ -43,8 +43,8 @@ gana la partida. Cuando una moneda es recogida desaparece del nivel.
 ## Inputs (1.5 puntos)
 Se espera que los controles del juego sean multiplataforma y permitan el
 control del personaje:
-- [ ] Usando teclado y ratón.
-- [ ] Usando un mando conectado al ordenador.
+- [x] Usando teclado y ratón.
+- [x] Usando un mando conectado al ordenador.
 
 ## Cámara (1.5 puntos)
 Se espera que la cámara acompañe el gameplay:
@@ -60,5 +60,7 @@ adicionales implementadas, sensación de juego, etcétera...
 # IGNORE
 ## Cosas que no son mías 
 - Los modelos 3D
+- Las animaciónes del Player
 - Los audios
   - El código del audio
+
