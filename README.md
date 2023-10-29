@@ -26,7 +26,7 @@ Las mecánicas a replicar del movimiento de Mario son:
 Se espera que el personaje tenga unas animaciones para sus mecánicas
 básicas, puede usarse una animación procedural si el alumno lo prefiere para
 ciertas animaciones.
-- [ ] Idle.
+- [x] Idle.
 - [ ] Caminar/Correr.
 - [ ] Salto.
 - [ ] Doble salto.
@@ -35,7 +35,7 @@ ciertas animaciones.
 ## Colisiones (1.5 puntos)
 Por el nivel habrá diversos elementos repartidos que interactúan de la
 siguiente forma al entrar en contacto con el jugador:
-- [ ] Elementos estáticos que matan al jugador, al morir se reinicia el nivel.
+- [x] Elementos estáticos que matan al jugador, al morir se reinicia el nivel.
 - [x] Estrellas esparcidas por el mundo, cuando el jugador recolecta X cantidad
 gana la partida. Cuando una moneda es recogida desaparece del nivel.
 - [ ] Plataformas de rebote que impulsaran el jugador hacía una dirección.
