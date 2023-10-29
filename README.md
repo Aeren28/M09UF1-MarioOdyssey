@@ -19,7 +19,7 @@ Las mecánicas a replicar del movimiento de Mario son:
 - [x] Salto, doble salto y triple salto.
 - [x]  Agacharse y andar agachado.
 - [ ]  Salto largo y mortal hacía atrás.
-- [ ]  Salto rebote a pared.
+- [x]  Salto rebote a pared.
 - [x]  Lanzamiento de Cappy y mecánica de rebote al contactar con él.
 
 ## Animaciones (2 puntos)
