@@ -23,6 +23,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 finalVelocity = Vector3.zero;
     private Vector3 followDirector = Vector3.zero;
+    private Vector3 direction = Vector3.zero;
+
+    public LayerMask wallLayer;
 
     [SerializeField]
     private float velocity = 8f;
@@ -41,6 +44,12 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private float jumpForce = 20f;
+
+    [SerializeField]
+    private float wallJumpForce = 10f;
+
+    [SerializeField]
+    private bool isTouchingWall = false;
 
     [SerializeField]
     //private int maxJump = 2;
@@ -75,6 +84,8 @@ public class PlayerMovement : MonoBehaviour
 
         Cruch();
 
+        WallJump();
+
 
         controller.Move(finalVelocity * Time.deltaTime);
 
@@ -85,6 +96,22 @@ public class PlayerMovement : MonoBehaviour
         gameover.Hide();
         youWin.HideWin();
         jumpForce = inicialJump;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Walljump"))
+        {
+            isTouchingWall = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Walljump"))
+        {
+            isTouchingWall = false;
+        }
     }
 
     private void Cruch()
@@ -151,6 +178,33 @@ public class PlayerMovement : MonoBehaviour
             coyoteTime -= Time.deltaTime;
         }
 
+    }
+
+    private void WallJump()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.right, out hit, 1f, wallLayer) || Physics.Raycast(transform.position, -transform.right, out hit, 1f, wallLayer))
+        {
+            isTouchingWall = true;
+        }
+        else
+        {
+            isTouchingWall = false;
+        }
+
+        if (inputManager.GetJumpButtonPressed() && isTouchingWall)
+        {
+            finalVelocity.y = jumpForce;
+            finalVelocity.x = direction.x * wallJumpForce;
+            jumpCounter++;
+            jumpTimer = 0.5f;
+            jumpForce *= 1.5f;
+            if (jumpCounter >= 3)
+            {
+                jumpCounter = 0;
+                jumpForce = inicialJump;
+            }
+        }
     }
 
     public Vector3 PlatformJump()
