@@ -10,8 +10,9 @@ public class Input_Manager : MonoBehaviour
     private PlayerInputActions playerInputs;
 
     private float timeSinceJumpPressed = 0f;
-    private float timeSinceCrouchPressed = 0f;
     private float timeSinceCappyPressed = 0f;
+
+    private bool crouch;
 
     private Vector2 leftAxisValue = Vector2.zero;
     private Vector2 rightAxisValue = Vector2.zero;
@@ -32,7 +33,10 @@ public class Input_Manager : MonoBehaviour
 
             //Delegates
             playerInputs.Character.Jump.performed += JumpButtonPressed;
-            playerInputs.Character.Crouch.performed += CrouchButtonPressed;
+
+            playerInputs.Character.Crouch.started += CrouchButtonPressed;
+            playerInputs.Character.Crouch.canceled += CrouchButtonPressedReleased;
+
             playerInputs.Character.Cappy.performed += CappyButtonPressed;
             playerInputs.Character.Move.performed += LeftAxisUpdate;
             playerInputs.Character.Camera.performed += RightAxisUpdate;
@@ -47,7 +51,6 @@ public class Input_Manager : MonoBehaviour
 
         timeSinceCappyPressed += Time.deltaTime;
         timeSinceJumpPressed += Time.deltaTime;
-        timeSinceCrouchPressed += Time.deltaTime;
 
         InputSystem.Update();
     }
@@ -73,7 +76,12 @@ public class Input_Manager : MonoBehaviour
 
     private void CrouchButtonPressed(InputAction.CallbackContext context)
     {
-        timeSinceCrouchPressed = 0f; 
+        crouch = true;
+    }
+
+    private void CrouchButtonPressedReleased(InputAction.CallbackContext context)
+    {
+        crouch = false;
     }
 
     private void CappyButtonPressed(InputAction.CallbackContext context)
@@ -90,7 +98,7 @@ public class Input_Manager : MonoBehaviour
     public bool GetCappyButtonPresed() { return timeSinceCappyPressed <= 0.2f;  }
 
 
-    public bool GetCrouchButtonPressed() { return timeSinceCrouchPressed <= 0.2; }
-
+    public bool GetCrouchButtonPressed() { return crouch; }
+    
 
 }
