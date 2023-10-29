@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     Camera camera;
 
+    [SerializeField]
+    private Animator animator;
+
     private CharacterController controller;
     private Input_Manager inputManager;
 
@@ -19,13 +22,13 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 followDirector = Vector3.zero;
 
     [SerializeField]
-    private float velocity = 5f;
+    private float velocity = 8f;
 
     [SerializeField]
     private float acceleration = 5f;
 
     [SerializeField]
-    private float desacceleration = 5f;
+    private float desacceleration = 7f;
 
     [SerializeField]
     private float speed;
@@ -68,6 +71,9 @@ public class PlayerMovement : MonoBehaviour
         MarioJump();
 
         Cruch();
+
+
+        controller.Move(finalVelocity * Time.deltaTime);
 
     }
 
@@ -184,7 +190,27 @@ public class PlayerMovement : MonoBehaviour
 
         finalVelocity.y += direction.y * gravity * Time.deltaTime;
 
-        controller.Move(finalVelocity * Time.deltaTime);
+        if (speed == 0f)
+        {
+         
+            animator.SetBool("walking", false);
+            animator.SetBool("running", false) ;
+
+        }
+        else if(speed < velocity / 2 && velocity != 0f)
+        {
+
+            animator.SetBool("walking", true);
+            animator.SetBool("running", false);
+
+        }
+        else if(speed > velocity / 2)
+        {
+
+            animator.SetBool("walking", false );
+            animator.SetBool("running", true) ;
+            
+        }
 
 
     }
