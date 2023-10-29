@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &9111064310035133926
+--- !u!1001 &9214689797369890621
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 57d505fa45fbcad458ce792af73d4380, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 57d505fa45fbcad458ce792af73d4380, type: 3}
       propertyPath: m_LocalScale.x
@@ -26,15 +26,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 57d505fa45fbcad458ce792af73d4380, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.05674
+      value: 4.5463905
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 57d505fa45fbcad458ce792af73d4380, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.58
+      value: 4.01
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 57d505fa45fbcad458ce792af73d4380, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.0849113
+      value: -1.1538525
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 57d505fa45fbcad458ce792af73d4380, type: 3}
       propertyPath: m_LocalRotation.w
@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 57d505fa45fbcad458ce792af73d4380, type: 3}
       propertyPath: m_Name
-      value: Coin Variant
+      value: Coin 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -74,36 +74,39 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 57d505fa45fbcad458ce792af73d4380, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5035358540916347902}
+      addedObject: {fileID: 4840371850539774740}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 57d505fa45fbcad458ce792af73d4380, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7487595932514294474}
+      addedObject: {fileID: 3016290177998420362}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 57d505fa45fbcad458ce792af73d4380, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5924490055651542916}
   m_SourcePrefab: {fileID: 100100000, guid: 57d505fa45fbcad458ce792af73d4380, type: 3}
---- !u!1 &8264221204264454327 stripped
+--- !u!1 &8295716676895980140 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 57d505fa45fbcad458ce792af73d4380, type: 3}
-  m_PrefabInstance: {fileID: 9111064310035133926}
+  m_PrefabInstance: {fileID: 9214689797369890621}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5035358540916347902
+--- !u!114 &4840371850539774740
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8264221204264454327}
+  m_GameObject: {fileID: 8295716676895980140}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fae0d8d632796845a2607646d3a758f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pickCoin: {fileID: 8300000, guid: 79cba0273e1dff34281c2a9906a5a7d8, type: 3}
---- !u!65 &7487595932514294474
+--- !u!65 &3016290177998420362
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8264221204264454327}
+  m_GameObject: {fileID: 8295716676895980140}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -118,3 +121,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.68, y: 1.48, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5924490055651542916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8295716676895980140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a102c1a34e723184484d3603dff81d3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 2
+  velocity: 7
